@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;800&display=swap');
+
+:root {
+  /* Druid + Tech Color Palette */
+  --bg-main: #0a1c15;
+  --bg-panel: rgba(13, 43, 33, 0.6);
+  --bg-panel-hover: rgba(20, 60, 45, 0.8);
+  
+  --text-main: #e2e8f0;
+  --text-muted: #9eb6a9;
+  
+  --accent-emerald: #10b981;
+  --accent-gold: #fbbf24;
+  
+  --border-glass: rgba(16, 185, 129, 0.2);
+  --border-focus: rgba(16, 185, 129, 0.6);
+  
+  /* Glowing Effects */
+  --neon-glow: 0 0 15px rgba(16, 185, 129, 0.4);
+  --neon-glow-strong: 0 0 25px rgba(16, 185, 129, 0.7);
+  --magic-glow: 0 0 20px rgba(251, 191, 36, 0.5);
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Fira Code', monospace;
+  
+  /* Utils */
+  --radius-lg: 16px;
+  --radius-md: 8px;
+  --transition-fast: 0.2s ease;
+  --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+  min-height: 100vh;
+  /* subtle pattern/texture for the 'druid' feel mixed with 'tech' */
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 85% 30%, rgba(251, 191, 36, 0.03) 0%, transparent 50%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+a {
+  color: var(--accent-emerald);
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+a:hover {
+  color: var(--accent-gold);
+  text-shadow: var(--magic-glow);
+}
+
+/* Base UI Components (Glassmorphism) */
+.glass-panel {
+  background: var(--bg-panel);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  transition: var(--transition-smooth);
+}
+
+.glass-panel:hover {
+  background: var(--bg-panel-hover);
+  border-color: var(--border-focus);
+  box-shadow: var(--neon-glow);
+}
+
+/* Tech/Mono Elements */
+.tech-text {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent-emerald);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Beautiful Buttons */
+.btn-primary {
+  background: transparent;
+  color: var(--accent-emerald);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  border: 1px solid var(--accent-emerald);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--accent-emerald);
+  z-index: -1;
+  opacity: 0;
+  transition: var(--transition-fast);
+}
+
+.btn-primary:hover {
+  color: var(--bg-main);
+  box-shadow: var(--neon-glow-strong);
+}
+
+.btn-primary:hover::before {
+  opacity: 1;
+}
+
+/* Layout Utilities */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.space-y-4 > * + * { margin-top: 1rem; }
+.space-y-8 > * + * { margin-top: 2rem; }
