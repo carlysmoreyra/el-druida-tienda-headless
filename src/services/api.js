@@ -15,7 +15,9 @@ export const mockProducts = [
 
 export const fetchProductsByCategory = async (category) => {
   try {
-    const response = await fetch('http://localhost:3001/api/products');
+    const isLocal = window.location.hostname === 'localhost';
+    const baseUrl = isLocal ? 'http://localhost:3001' : '';
+    const response = await fetch(`${baseUrl}/api/products`);
     const data = await response.json();
 
     if (data.mockRequired) {
