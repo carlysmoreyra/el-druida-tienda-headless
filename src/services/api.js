@@ -27,9 +27,14 @@ export const fetchProductsByCategory = async (category) => {
       });
     }
 
+    // Función de extracción robusta para soportar productos de MercadoLibre u otros idiomas
+    const extractText = (field) => {
+      if (!field) return '';
+      if (typeof field === 'string') return field;
+      return field.es || field.pt || field.en || Object.values(field)[0] || '';
+    };
+
     const normalizedData = (data || []).map(p => {
-      // Normalizamos el formato complejo de TiendaNube a nuestro frontend simple
-      const productName = p.name?.es || p.name || 'Objeto Mágico';
       let productPrice = 0;
       if (p.variants && p.variants[0] && p.variants[0].price) {
         productPrice = parseFloat(p.variants[0].price);
@@ -39,11 +44,11 @@ export const fetchProductsByCategory = async (category) => {
       
       return {
         id: p.id,
-        name: productName,
+        name: extractText(p.name) || 'Objeto Magico',
         price: productPrice,
         image: p.images && p.images.length > 0 ? p.images[0].src : p.image,
         isNew: true,
-        description: p.description?.es || p.description || 'Sin descripción detallada aún.',
+        description: extractText(p.description) || 'Sin descripción detallada.',
         variantId: p.variants && p.variants[0] ? p.variants[0].id : null,
         url: p.canonical_url
       };
