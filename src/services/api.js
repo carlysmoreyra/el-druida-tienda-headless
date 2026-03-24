@@ -42,7 +42,10 @@ export const fetchProductsByCategory = async (category) => {
         name: productName,
         price: productPrice,
         image: p.images && p.images.length > 0 ? p.images[0].src : p.image,
-        isNew: true
+        isNew: true,
+        description: p.description?.es || p.description || 'Sin descripción detallada aún.',
+        variantId: p.variants && p.variants[0] ? p.variants[0].id : null,
+        url: p.canonical_url
       };
     });
 
